@@ -1,3 +1,9 @@
+if(!show)
+{
+	show_debug_message("Hide Card");
+}
+if(!show) return;
+
 //face up and down
 if(face_up){
 	sprite_index = front_spr;

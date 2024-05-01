@@ -1,0 +1,13 @@
+{
+  "$GMScript":"",
+  "%Name":"LDeckReposition",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"LDeckReposition",
+  "parent":{
+    "name":"LambertScripts",
+    "path":"folders/lambert/LambertScripts.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

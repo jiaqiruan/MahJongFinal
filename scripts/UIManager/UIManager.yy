@@ -1,0 +1,13 @@
+{
+  "$GMScript":"",
+  "%Name":"UIManager",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"UIManager",
+  "parent":{
+    "name":"LambertScripts",
+    "path":"folders/lambert/LambertScripts.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

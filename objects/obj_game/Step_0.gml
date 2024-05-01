@@ -1,7 +1,9 @@
 //order player hand
+//shuffle button
 if(keyboard_check_pressed(ord("S"))){
 	order_list(player_list,player_xpos,player_ypos);
 }
+//check winning button
 if(keyboard_check_pressed(ord("W"))){
 	if(check_winning(player_list)){
 		show_debug_message("winning hand!");
@@ -18,6 +20,7 @@ switch(game_state){
 	//draw or play
 	case "decision":
 		//press D, draw a hand, enter the discard state
+		//draw single card button
 		if((keyboard_check_pressed(ord("D")))){
 			//draw n cards, for now 1
 			draw_hands(draw_amount);
@@ -25,6 +28,7 @@ switch(game_state){
 			global.multi_select_player = false;
 			game_state = "discard";
 		}
+		//enter play state button
 		//press E, draw n numbers of playable hands, enter the play state
 		if(keyboard_check_pressed(ord("E"))){
 			draw_playable(playable_amount);
@@ -38,6 +42,7 @@ switch(game_state){
 	//after player draw n cards, they have to discard n cards
 	case "discard":
 		//discard all selected card
+		//discard select button
 		if((keyboard_check_pressed(vk_enter))){
 			discard_selected();
 			global.multi_select_player = true;
@@ -74,6 +79,7 @@ switch(game_state){
 		}
 		find_potential();
 		game_state = "wait_play";
+		UpdateUI();
 		break;
 	case "wait_play":
 		//another thing during the wait play state we should do
@@ -88,30 +94,7 @@ switch(game_state){
 		
 	
 	
-		global.multi_select_player = true;
-		if(keyboard_check_pressed(vk_enter)){
-			var tmp_result = check_potential();
-			switch(tmp_result){
-				//nothing happen
-				case 0:
-					
-					break;
-				case 1:
-					game_state = "draw";
-					break;
-				case 2: 
-					global.multi_select_player = false;
-					game_state = "discard";
-					break;
-				case 3:
-					game_state = "draw2";
-					break;
-			}
-		}
-		if(keyboard_check_pressed(vk_escape)){
-			discard_playable();
-			game_state = "decision";
-		}
+		
 		break;
 	//draw state, draw one and discard 1
 	case "draw":

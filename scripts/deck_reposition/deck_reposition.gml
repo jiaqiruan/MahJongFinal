@@ -5,4 +5,9 @@ function deck_reposition(_deck_given, _xpos, _ypos){
 		_deck_given[|_i].x = _xpos+(_i*global.card_separation);
 		_deck_given[|_i].y = _ypos;
 	}
+
+	if(instance_find(obj_game, 0) != noone)
+	{
+		UpdateUI();
+	}
 }

@@ -1,3 +1,106 @@
+//UI
+	global.game = id;
+
+	global.ButtonDepth = -9999;
+	global.PanelDepth = -10000;
+
+	screenCenterX = view_xview[0] + view_wview[0] / 2;
+	screenCenterY = view_yview[0] + view_hview[0] / 2;
+	
+	wining_hands_array =
+	[
+		{
+			name : "STRAIGHT",
+			sprite : spr_straight,
+			//m_score: 
+		},
+		{
+			name : "STRAIGHT FLUSH",
+			sprite : spr_straight_flush
+		}
+		//{
+			//name: "PENG"
+		//}
+	]
+
+	//playable list
+	playable_deck_offset_x = 22;
+	playable_deck_offset_y = 0;
+
+	//deck list
+	deck_offset_x = 22;
+	deck_offest_y = 350;
+	
+	//player list
+	player_deck_offset_x = 22;
+	player_deck_offset_y = -200;
+
+	//Spacing
+	card_spacing = 50;
+	
+	//Card Scale
+	card_scale_x = 1.5;
+	card_scale_y = 1.5;
+	
+	function DrawCard()
+	{
+		//draw n cards, for now 1
+		draw_hands(draw_amount);
+		//entering discard state, disable multi-select player
+		global.multi_select_player = false;
+		player_list[|0].y -= 50;
+		player_list[|0].selected = true;
+		global.player_selected_card = player_list[|0];
+		game_state = "discard";
+		UpdateUI();
+	}
+	function DrawPlayable()
+	{
+		draw_playable(playable_amount);
+		game_state = "play";
+		UpdateUI();
+	}
+	function PlayCard()
+	{
+		global.multi_select_player = true;
+		//play playable button
+		if(keyboard_check_pressed(vk_enter)){
+			var tmp_result = check_potential();
+			switch(tmp_result){
+				//nothing happen
+				case 0:
+					
+					break;
+				case 1:
+					game_state = "draw";
+					break;
+				case 2: 
+					global.multi_select_player = false;
+					game_state = "discard";
+					break;
+				case 3:
+					game_state = "draw2";
+					break;
+			}
+		}
+		discard_playable();
+			game_state = "decision";
+		UpdateUI();
+	}
+	function DiscardCard()
+	{
+		discard_selected();
+		global.multi_select_player = true;
+		game_state = "decision";
+		UpdateUI();
+	}
+	function OpenShop()
+	{
+		
+	}
+//End UI
+
+
 //keep track of game state
 game_state = "decision";
 game_score= 0;
@@ -84,15 +187,9 @@ global.playable_selected_card = noone;
 
 
 
-//generate the general deck
-generate_deck();
 
-//shuffle the deck
-shuffle_deck(deck_list,general_xpos,general_ypos);
 
-//draw_starting_hand
-draw_starting_hands();
-
+alarm[0] = 1;
 
 
 

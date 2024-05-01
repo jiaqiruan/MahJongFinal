@@ -1,0 +1,13 @@
+{
+  "$GMScript":"",
+  "%Name":"DetermineCard",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"DetermineCard",
+  "parent":{
+    "name":"LambertScripts",
+    "path":"folders/lambert/LambertScripts.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

@@ -1,6 +1,11 @@
 /// @description Insert description here
 // You can write your code in this editor
+if(!show) return;
+
+depth = -y;
+
 draw_self();
+
 
 if(listening){
 	draw_set_color(c_red);
