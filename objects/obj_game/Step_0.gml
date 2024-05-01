@@ -52,7 +52,7 @@ switch(game_state){
 	
 	
 	case "play":
-		find_potential();
+		
 		for(var _i=0; _i<ds_list_size(playable_list);_i++){
 			var _current = playable_list[|_i];
 			//check adjacency
@@ -72,6 +72,7 @@ switch(game_state){
 				ds_list_destroy(_check_player_list);
 			}
 		}
+		find_potential();
 		game_state = "wait_play";
 		break;
 	case "wait_play":
@@ -102,6 +103,9 @@ switch(game_state){
 					global.multi_select_player = false;
 					game_state = "discard";
 					break;
+				case 3:
+					game_state = "draw2";
+					break;
 			}
 		}
 		if(keyboard_check_pressed(vk_escape)){
@@ -112,6 +116,12 @@ switch(game_state){
 	//draw state, draw one and discard 1
 	case "draw":
 		draw_hands(1);
+		//entering discard state, disable multi-select player
+		global.multi_select_player = false;
+		game_state = "discard";
+		break;
+	case "draw2":
+		draw_hands(2);
 		//entering discard state, disable multi-select player
 		global.multi_select_player = false;
 		game_state = "discard";

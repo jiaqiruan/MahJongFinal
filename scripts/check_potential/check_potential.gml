@@ -38,12 +38,34 @@ function check_potential(){
 	//if size of potential is less than 2 or greater than 5
 	//invalid potential
 	//result event_result as 0
-	if(ds_list_size(potential_list)<=2 || ds_list_size(potential_list)>=5){
+	if(ds_list_size(potential_list)<=2 || ds_list_size(potential_list)>5){
 		show_debug_message("Invalid Hand!");
 		event_result = 0;
 		order_list(playable_list,playable_xpos,playable_ypos)
 		order_list(player_list,player_xpos,player_ypos);
 	}else{
+		//potential straight
+		if(ds_list_size(potential_list)==5){
+			var straight_suit = potential_list[|0].suit;
+			var straight_rank = potential_list[|0].rank;
+			for(var i = 1; i <ds_list_size(potential_list); i++){
+				
+				if (potential_list[|i].suit != straight_suit || potential_list[|i].rank != straight_rank+1){
+					
+					show_debug_message("Invalid Hand!");
+					order_list(playable_list,playable_xpos,playable_ypos)
+					order_list(player_list,player_xpos,player_ypos);
+					break;
+				}
+				straight_rank = potential_list[|i].rank;
+			}
+			//all good, move all card to the score deck
+			//event result 3 indicating straight event
+			//draw 1
+			event_result = 3;
+			game_score += straight_score;
+			selected_to_score();
+		}
 		//potential kong
 		if (ds_list_size(potential_list)==4){
 			var kong_suit = potential_list[|0].suit;
@@ -61,6 +83,7 @@ function check_potential(){
 			//event result 1 indicating kong event
 			//draw 1, discard 1
 			event_result = 1;
+			game_score += kong_score;
 			selected_to_score();
 		}
 		//potential pung
@@ -71,12 +94,14 @@ function check_potential(){
 				if (potential_list[|0].rank == potential_list[|1].rank && potential_list[|2].rank == potential_list[|1].rank){
 					//discard 1
 					event_result = 2;
+					game_score += pung_score;
 					selected_to_score();
 				}
 				//only suit 1, 2 and 3 have chow
 				if (potential_list[|0].suit<=3 && potential_list[|0].rank+1 == potential_list[|1].rank && potential_list[|1].rank+1 == potential_list[|2].rank){
-					//draw 1, discard 1
+					//discard 1
 					event_result = 2;
+					game_score += chow_score;
 					selected_to_score();
 				}
 			}else{

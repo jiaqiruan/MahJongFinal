@@ -1,10 +1,16 @@
 //keep track of game state
 game_state = "decision";
+game_score= 0;
 
+straight_score = 1000;
+kong_score = 400;
+pung_score = 200;
+chow_score = 100;
 
 //determine winning hand helper
 num_triplet = 0;
 //template for all zero array up to 29
+//
 tmp_card_template = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
 
 card_tracker =  [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];

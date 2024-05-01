@@ -3,7 +3,7 @@
 function check_winning(_list_given){
 	
 	if (ds_list_size(_list_given)+(num_triplet*3) > 14) {
-            return false;
+		return false;
     }
 	var _tmp_card = [];
 	

@@ -77,6 +77,67 @@ function find_potential(){
 		}
 	}
 	for (var i = 0 ; i < ds_list_size(playable_list) ; i ++ ){
+		var uid = playable_list[|i].uid;
+		//experimenting with a new way of detecting straight
+		//first, straight only happen in suit 1 t o 3
+		//we have a card_tracker to keep track of all cards in hand
+		//for every card in playable pool
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		//dot1 to dot5(1-5), bamboo1 to bamboo5(11-15), wan1 to wan5(21-25)
+		//index+1,index+2,index+3,index+4, being the head of straight, 1 to 5
+		if((uid>=1&&uid<=5)||(uid>=11&&uid<=15)||(uid>=21&&uid<=25)){
+			if(card_tracker[uid+1]>0&&card_tracker[uid+2]>0&&card_tracker[uid+3]>0&&card_tracker[uid+4]>0){
+				playable_list[|i].potential = true;
+				show_debug_message("Potential Straight: "+mahjong_hands[playable_list[|i].suit][playable_list[|i].rank]);
+			}
+		}
+		
+		//dot2 to dot6(2-6), bamboo2 to bamboo6(12-16), wan2 to wan6(22-26)
+		//index-1,index+1,index+2,index+3, being the second of straight, 2 to 6
+		if((uid>=2&&uid<=6)||(uid>=12&&uid<=16)||(uid>=22&&uid<=26)){
+			if(card_tracker[uid+1]>0&&card_tracker[uid+2]>0&&card_tracker[uid+3]>0&&card_tracker[uid-1]>0){
+				playable_list[|i].potential = true;
+				show_debug_message("Potential Straight: "+mahjong_hands[playable_list[|i].suit][playable_list[|i].rank]);
+			}
+		}
+		
+		//dot3 to dot7(3-7), bamboo3 to bamboo7(13-17), wan3 to wan7(23-27)
+		////index-2,inedx-2,index+1,index+2, being the middle of straight, 3 to 7
+		if((uid>=3&&uid<=7)||(uid>=13&&uid<=17)||(uid>=23&&uid<=27)){
+			if(card_tracker[uid+1]>0&&card_tracker[uid+2]>0&&card_tracker[uid-1]>0&&card_tracker[uid-2]>0){
+				playable_list[|i].potential = true;
+				show_debug_message("Potential Straight: "+mahjong_hands[playable_list[|i].suit][playable_list[|i].rank]);
+			}
+		}
+		
+		//dot4 to dot8(4-8), bamboo4 to bamboo8(14-18), wan4 to wan8(24-28)
+		//index-3,index-2,index-1,index+1, being the fourth of straight, 4 to 8
+		if((uid>=4&&uid<=8)||(uid>=14&&uid<=18)||(uid>=24&&uid<=28)){
+			if(card_tracker[uid+1]>0&&card_tracker[uid-3]>0&&card_tracker[uid-1]>0&&card_tracker[uid-2]>0){
+				playable_list[|i].potential = true;
+				show_debug_message("Potential Straight: "+mahjong_hands[playable_list[|i].suit][playable_list[|i].rank]);
+			}
+		}
+		
+		//dot5 to dot9(5-9), bamboo5 to bamboo9(15-19), wan5 to wan9(25-29)
+		//index-4,index-3,index-2,index-1. being the tail of straight, 5 to 9
+		if((uid>=5&&uid<=9)||(uid>=15&&uid<=19)||(uid>=25&&uid<=29)){
+			if(card_tracker[uid-4]>0&&card_tracker[uid-3]>0&&card_tracker[uid-1]>0&&card_tracker[uid-2]>0){
+				playable_list[|i].potential = true;
+				show_debug_message("Potential Straight: "+mahjong_hands[playable_list[|i].suit][playable_list[|i].rank]);
+			}
+		}
+		
 		if (potential_pungs[playable_list[|i].suit][playable_list[|i].rank].is_potential){
 			playable_list[|i].potential = true;
 			show_debug_message("Potential Pung: "+mahjong_hands[playable_list[|i].suit][playable_list[|i].rank]+". Index of play list: "+string(potential_pungs[playable_list[|i].suit][playable_list[|i].rank].index_arr));
